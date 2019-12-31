@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.navelplace</groupId>
   <artifactId>tool-kt</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
 
   <name>Kotlin Tool-KiT</name>
   <description>A toolkit of useful utilities for hybrid java/kotlin development</description>
@@ -62,7 +60,7 @@
     <connection>scm:git:git@github.com:BrianDeacon/tool-kt.git</connection>
     <developerConnection>scm:git:git@github.com-BrianDeacon:BrianDeacon/tool-kt.git</developerConnection>
     <url>https://github.com/BrianDeacon/tool-kt/tree/master</url>
-    <tag>v${project.version}</tag>
+    <tag>v0.0.1</tag>
   </scm>
 
 

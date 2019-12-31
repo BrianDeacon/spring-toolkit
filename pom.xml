@@ -60,7 +60,7 @@
 
   <scm>
     <connection>scm:git:git@github.com:BrianDeacon/tool-kt.git</connection>
-    <developerConnection>scm:git:git@github.com:BrianDeacon/tool-kt.git</developerConnection>
+    <developerConnection>scm:git:git@github.com-BrianDeacon:BrianDeacon/tool-kt.git</developerConnection>
     <url>https://github.com/BrianDeacon/tool-kt/tree/master</url>
     <tag>v${project.version}</tag>
   </scm>

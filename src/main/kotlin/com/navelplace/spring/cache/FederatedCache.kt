@@ -29,7 +29,12 @@ open class FederatedCache<K, V>(private val componentCaches: Set<Cache>,
 
     private fun whichCache(key: Any, value: Any?): Cache {
         @Suppress("UNCHECKED_CAST")
-        return cacheStrategy.chooseCache(key as K, value as V?, componentCaches)?: defaultCache
+        val cache = cacheStrategy.chooseCache(key as K, value as V?, componentCaches)
+                ?: defaultCache
+
+        return cache.also {
+            check(allCaches.contains(it)) { "The CacheStrategy must return one of the component caches" }
+        }
     }
 
     private fun Cache.typedGet(key: Any): Cache.ValueWrapper? {

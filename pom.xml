@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
   <modelVersion>4.0.0</modelVersion>
 
@@ -7,7 +9,7 @@
   <artifactId>tool-kt</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
-  <name>tool-kt</name>
+  <name>Kotlin Tool-KiT</name>
   <description>A toolkit of useful utilities for hybrid java/kotlin development</description>
   <url>https://github.com/BrianDeacon/tool-kt</url>
 
@@ -20,25 +22,27 @@
     </developer>
   </developers>
 
-<pluginRepositories>
-  <pluginRepository>
-    <id>spring</id>
-    <url>https://repo.spring.io/plugins-release/</url>
-  </pluginRepository>
-</pluginRepositories>
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <kotlin.version>1.3.50</kotlin.version>
-    <kotlin_coroutines_version>1.2.2</kotlin_coroutines_version>
     <spring_range>[5.1.0.RELEASE,5.3]</spring_range>
-    <junit.version>4.8.2</junit.version>
+
+    <!-- Plugins -->
     <dokka.version>0.9.18</dokka.version>
     <gpg.plugin.version>1.6</gpg.plugin.version>
     <nexus.staging.maven.plugin.version>1.6.8</nexus.staging.maven.plugin.version>
     <maven.release.plugin.version>2.5</maven.release.plugin.version>
     <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
     <source.plugin.version>3.2.1</source.plugin.version>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>spring-plugins</id>
+      <url>https://repo.spring.io/plugins-release/</url>
+    </pluginRepository>
+  </pluginRepositories>
 
   <distributionManagement>
     <snapshotRepository>
@@ -46,6 +50,7 @@
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
+
   <scm>
     <connection>scm:git:git@github.com:BrianDeacon/tool-kt.git</connection>
     <developerConnection>scm:git:git@github.com:BrianDeacon/tool-kt.git</developerConnection>
@@ -53,71 +58,6 @@
     <tag>v${project.version}</tag>
   </scm>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-context</artifactId>
-        <version>${spring_range}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-web</artifactId>
-        <version>${spring_range}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-stdlib</artifactId>
-      <version>${kotlin.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jetbrains.kotlinx</groupId>
-      <artifactId>kotlinx-coroutines-core</artifactId>
-      <version>${kotlin_coroutines_version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-core</artifactId>
-      <version>1.3</version>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-test-junit</artifactId>
-      <version>${kotlin.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
-      <version>3.11.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.github.javafaker</groupId>
-      <artifactId>javafaker</artifactId>
-      <version>1.0.1</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
 
   <profiles>
     <profile>
@@ -139,6 +79,7 @@
       </build>
     </profile>
   </profiles>
+
   <build>
     <plugins>
       <plugin>
@@ -200,6 +141,7 @@
           <outputFormat>javadoc</outputFormat>
           <sourceDirectories>
             <dir>src/main/kotlin</dir>
+            <dir>src/main/java</dir>
           </sourceDirectories>
         </configuration>
       </plugin>
@@ -210,21 +152,25 @@
         <executions>
           <execution>
             <id>compile</id>
-            <goals> <goal>compile</goal> </goals>
+            <goals>
+              <goal>compile</goal>
+            </goals>
             <configuration>
               <sourceDirs>
-                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
-                <sourceDir>${project.basedir}/src/main/java</sourceDir>
+                <sourceDir>src/main/kotlin</sourceDir>
+                <sourceDir>src/main/java</sourceDir>
               </sourceDirs>
             </configuration>
           </execution>
           <execution>
             <id>test-compile</id>
-            <goals> <goal>test-compile</goal> </goals>
+            <goals>
+              <goal>test-compile</goal>
+            </goals>
             <configuration>
               <sourceDirs>
-                <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
-                <sourceDir>${project.basedir}/src/test/java</sourceDir>
+                <sourceDir>src/test/kotlin</sourceDir>
+                <sourceDir>src/test/java</sourceDir>
               </sourceDirs>
             </configuration>
           </execution>
@@ -252,15 +198,115 @@
           <execution>
             <id>java-compile</id>
             <phase>compile</phase>
-            <goals> <goal>compile</goal> </goals>
+            <goals>
+              <goal>compile</goal>
+            </goals>
           </execution>
           <execution>
             <id>java-test-compile</id>
             <phase>test-compile</phase>
-            <goals> <goal>testCompile</goal> </goals>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
           </execution>
         </executions>
       </plugin>
     </plugins>
   </build>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context</artifactId>
+        <version>${spring_range}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${spring_range}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest-core</artifactId>
+        <version>[1.3,)</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains.kotlinx</groupId>
+        <artifactId>kotlinx-coroutines-core</artifactId>
+        <version>[1.2.2,)</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>[4.8.2,5)</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-stdlib</artifactId>
+        <version>[${kotlin.version},)</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-test-junit</artifactId>
+        <version>[${kotlin.version},)</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.javafaker</groupId>
+        <artifactId>javafaker</artifactId>
+        <version>[1.0.1,)</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>[3.11.1,)</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlinx</groupId>
+      <artifactId>kotlinx-coroutines-core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-test-junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.github.javafaker</groupId>
+      <artifactId>javafaker</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>

@@ -77,6 +77,71 @@
   </scm>
 
 
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>${gpg.plugin.version}</version>
+            <configuration>
+              <useAgent>false</useAgent>
+              <gpgArguments>
+                <arg>--pinentry-mode</arg>
+                <arg>loopback</arg>
+              </gpgArguments>
+            </configuration>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>${source.plugin.version}</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.jetbrains.dokka</groupId>
+            <artifactId>dokka-maven-plugin</artifactId>
+            <version>${dokka.version}</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>javadocJar</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <outputFormat>javadoc</outputFormat>
+              <sourceDirectories>
+                <dir>src/main/kotlin</dir>
+                <dir>src/main/java</dir>
+              </sourceDirectories>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
   <build>
     <plugins>
 
@@ -88,65 +153,23 @@
         <configuration>
           <serverId>ossrh</serverId>
           <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>false</autoReleaseAfterClose>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
         </configuration>
       </plugin>
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-gpg-plugin</artifactId>
-        <version>${gpg.plugin.version}</version>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>${maven.release.plugin.version}</version>
         <configuration>
-          <useAgent>false</useAgent>
-          <gpgArguments>
-            <arg>--pinentry-mode</arg>
-            <arg>loopback</arg>
-          </gpgArguments>
-        </configuration>
-        <executions>
-          <execution>
-            <id>sign-artifacts</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>sign</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <version>${source.plugin.version}</version>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <phase>package</phase>
-            <goals>
-              <goal>jar-no-fork</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.jetbrains.dokka</groupId>
-        <artifactId>dokka-maven-plugin</artifactId>
-        <version>${dokka.version}</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>javadocJar</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <outputFormat>javadoc</outputFormat>
-          <sourceDirectories>
-            <dir>src/main/kotlin</dir>
-            <dir>src/main/java</dir>
-          </sourceDirectories>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <useReleaseProfile>false</useReleaseProfile>
+          <releaseProfiles>release</releaseProfiles>
+          <goals>deploy</goals>
         </configuration>
       </plugin>
+
+
       <plugin>
         <artifactId>kotlin-maven-plugin</artifactId>
         <groupId>org.jetbrains.kotlin</groupId>

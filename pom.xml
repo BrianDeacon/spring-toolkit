@@ -7,7 +7,7 @@
 
   <groupId>com.navelplace</groupId>
   <artifactId>tool-kt</artifactId>
-  <version>0.0.6</version>
+  <version>0.0.7-SNAPSHOT</version>
 
   <name>Kotlin Tool-KiT</name>
   <description>A toolkit of useful utilities for hybrid java/kotlin development</description>

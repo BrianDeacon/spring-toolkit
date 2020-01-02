@@ -116,26 +116,7 @@
               </execution>
             </executions>
           </plugin>
-          <plugin>
-            <groupId>org.jetbrains.dokka</groupId>
-            <artifactId>dokka-maven-plugin</artifactId>
-            <version>${dokka.version}</version>
-            <executions>
-              <execution>
-                <phase>package</phase>
-                <goals>
-                  <goal>javadocJar</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <outputFormat>javadoc</outputFormat>
-              <sourceDirectories>
-                <dir>src/main/kotlin</dir>
-                <dir>src/main/java</dir>
-              </sourceDirectories>
-            </configuration>
-          </plugin>
+
         </plugins>
       </build>
     </profile>
@@ -165,6 +146,27 @@
           <useReleaseProfile>false</useReleaseProfile>
           <releaseProfiles>release</releaseProfiles>
           <goals>deploy</goals>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.jetbrains.dokka</groupId>
+        <artifactId>dokka-maven-plugin</artifactId>
+        <version>${dokka.version}</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>javadocJar</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <outputFormat>javadoc</outputFormat>
+          <sourceDirectories>
+            <dir>src/main/kotlin</dir>
+            <dir>src/main/java</dir>
+          </sourceDirectories>
         </configuration>
       </plugin>
 
